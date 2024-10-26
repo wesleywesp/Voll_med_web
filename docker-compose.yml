@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      -vollmed-network:
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: wesley455478
+      MYSQL_USER: wesley
+      MYSQL_PASSWORD: wesley455478
+      MYSQL_DATABASE: vollmed_api
+    ports:
+      - "3306:3306"  # Use the standard MySQL port
+    networks:
+      -vollmed-network:
+    volumes:
+      - vollmed-data:/var/lib/mysql
+
+networks:
+  vollmed-network:
+    driver: bridge
+
+volumes:
+ vollmed-data:
